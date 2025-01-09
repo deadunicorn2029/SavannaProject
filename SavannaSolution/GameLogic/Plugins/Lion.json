@@ -1,0 +1,9 @@
+{
+  "AnimalBehaviour": "Predator",
+  "AnimalType": "Lion",
+  "AnimalReadKey": "L",
+  "AnimalInGameSimbol": "L",
+  "Speed": 1,
+  "VisionRange": 5,
+  "Health":  100
+}

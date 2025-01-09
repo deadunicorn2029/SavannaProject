@@ -1,0 +1,9 @@
+{
+  "AnimalBehaviour": "Prey",
+  "AnimalType": "Giraffe",
+  "AnimalReadKey": "G",
+  "AnimalInGameSimbol": "G",
+  "Speed": 2,
+  "VisionRange": 5,
+  "Health": 110
+}
