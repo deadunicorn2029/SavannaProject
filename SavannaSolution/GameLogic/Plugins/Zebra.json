@@ -1,0 +1,9 @@
+{
+  "AnimalBehaviour": "Prey",
+  "AnimalType": "Zebra",
+  "AnimalReadKey": "Z",
+  "AnimalInGameSimbol": "Z",
+  "Speed": 3,
+  "VisionRange": 2,
+  "Health": 80
+}

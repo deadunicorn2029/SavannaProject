@@ -1,0 +1,86 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        background-color: white;
+        color: black;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .vh-100 {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        background-color: white;
+        color: black;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .form-label,
+    .form-control,
+    a {
+        color: black !important;
+    }
+
+    .btn {
+        color: white;
+        background-color: black;
+        border-color: black;
+    }
+
+    .btn:hover {
+        background-color: #333;
+        border-color: #333;
+    }
+
+</style>
+
+<section class="d-flex justify-content-center align-items-center mt-5">
+    <div class="container h-100Z">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="mb-md-4 mt-md-3 pb-3">
+                            <h1 class="fw-bold mb-4 text-uppercase">Welcome to the Savanna!</h1> 
+                        <div> 
+                        </div> 
+                        @if (User.Identity.IsAuthenticated) 
+                        {
+                            <div class="form-outline mb-3">
+ 
+                            </div> 
+                        } 
+ 
+                        @if (!User.Identity.IsAuthenticated) 
+                        {
+                            <div class="form-outline mb-3">
+                                <p class="mb-4 fw-bold me-2 text-uppercase" style="font-size:20px;"> 
+                                    @Html.ActionLink("Login", "Login", "Account", new { @class = "btn btn-outline-light btn-lg px-3" }) 
+                                </p> 
+                                <p class="fw-bold text-uppercase" style="font-size:20px;"> 
+                                    @Html.ActionLink("Register", "Register", "Account", new { @class = "btn btn-outline-light btn-lg px-3" }) 
+                                </p> 
+                            </div> 
+                        } 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</section>

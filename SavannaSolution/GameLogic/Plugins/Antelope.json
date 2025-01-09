@@ -1,0 +1,9 @@
+{
+  "AnimalBehaviour": "Prey",
+  "AnimalType": "Antelope",
+  "AnimalReadKey": "A",
+  "AnimalInGameSimbol": "A",
+  "Speed": 4,
+  "VisionRange": 3,
+  "Health": 60
+}

@@ -1,0 +1,9 @@
+{
+  "AnimalBehaviour": "Predator",
+  "AnimalType": "Cheetah",
+  "AnimalReadKey": "C",
+  "AnimalInGameSimbol": "C",
+  "Speed": 4,
+  "VisionRange": 5,
+  "Health": 50
+}

@@ -1,0 +1,103 @@
+﻿@model SavannaWeb.ViewModels.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<style>
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        background-color: white;
+        color: black;
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+
+    .vh-100 {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card {
+        background-color: white;
+        color: black;
+        width: 100%;
+        max-width: 500px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        border: 1px solid #ccc;
+    }
+
+    .form-label,
+    .form-control,
+    a {
+        color: black !important;
+    }
+
+    .btn {
+        color: white;
+        background-color: black;
+        border-color: black;
+    }
+
+    .btn:hover {
+        background-color: #333;
+        border-color: #333;
+    }
+</style>
+
+<section class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+        <div class="row w-100 justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="mb-md-5 mt-md-4 pb-5">
+                            <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
+                            <p>Please enter your username/email and password!</p>
+                            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-outline mb-4">
+                                    @Html.TextBoxFor(m => m.UsernameOrEmail, new { @class = "form-control form-control-lg", placeholder = "Username or Email" })
+                                    @Html.LabelFor(m => m.UsernameOrEmail, "Username Or Email:", new { @class = "form-label mt-1" })
+                                    @Html.ValidationMessageFor(m => m.UsernameOrEmail, "", new { @class = "text-warning fw-bold" })
+                                </div>
+                                <div class="form-outline mb-4">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control form-control-lg", placeholder = "Password" })
+                                    @Html.LabelFor(m => m.Password, "Password:", new { @class = "form-label mt-1" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-warning fw-bold" })
+                                </div>
+
+                                @if (ViewData.ModelState.ContainsKey(string.Empty) && ViewData.ModelState[string.Empty].Errors.Count > 0)
+                                {
+                                    <div class="text-danger">
+                                        @Html.ValidationSummary(false, "", new { @class = "text-warning fw-bold" })
+                                    </div>
+                                }
+
+                                <p class="small mb-5 pb-lg-2">
+                                    @Html.ActionLink("Forgot password?", "ForgotPassword", "Account")
+                                </p>
+                                <button type="submit" class="btn btn-lg px-5">Login</button>
+                            }
+                        </div>
+                        <div>
+                            <p class="mb-0">
+                                Don't have an account?
+                                @Html.ActionLink("Sign Up", "Register", "Account", new { @class = "fw-bold link-white" })
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

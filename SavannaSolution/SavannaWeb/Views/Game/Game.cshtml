@@ -1,0 +1,139 @@
+﻿@model SavannaWeb.ViewModels.GameViewModel;
+
+@{
+    ViewData["Title"] = "Savanna Game";
+}
+
+<style>
+    #game-field {
+        background-color: #c0f0c0;
+        border: 2px solid #333;
+        position: relative;
+    }
+
+    .animal {
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+        .animal:hover {
+            transform: scale(1.1);
+        }
+</style>
+
+<div class="container text-center mt-4">
+    <!-- Game Field -->
+    <div id="game-field" class="border" style="width: 600px; height: 400px; margin: 0 auto; position: relative; background-color: lightgreen;">
+        <!-- Animals will be rendered dynamically -->
+    </div>
+
+    <!-- Controls -->
+    <div class="mt-4">
+        <h5>Add an Animal</h5>
+        <button class="btn btn-primary" onclick="addAnimal('Lion')">Lion</button>
+        <button class="btn btn-primary" onclick="addAnimal('Leopard')">Leopard</button>
+        <button class="btn btn-primary" onclick="addAnimal('Antelope')">Antelope</button>
+        <button class="btn btn-primary" onclick="addAnimal('Giraffe')">Giraffe</button>
+        <button class="btn btn-primary" onclick="addAnimal('Zebra')">Zebra</button>
+    </div>
+
+    <!-- Save/Load Buttons -->
+    <div class="mt-4">
+        <button class="btn btn-success" onclick="saveGame()">Save</button>
+        <button class="btn btn-warning" onclick="loadGame()">Load</button>
+    </div>
+</div>
+
+@* <div id="game-field" style="position: relative; width: 800px; height: 600px; background: lightgreen;">
+    @foreach (var animal in Model.Animals)
+    {
+        <div id="animal-@animal.Id" style="position: absolute; left: @animal.Xpx; top: @animal.Ypx;">
+            🦓 @animal.Species
+        </div>
+    }
+</div> *@
+
+<script>
+    // Get animals from the backend ViewModel
+    let animals = @Html.Raw(Json.Serialize(Model.Animals));
+
+    const gameField = document.getElementById('game-field');
+
+    // Add Animal to the Field
+    function addAnimal(type) {
+        const animal = {
+            type: type,
+            x: Math.floor(Math.random() * 550),
+            y: Math.floor(Math.random() * 350)
+        };
+
+        animals.push(animal);
+        renderAnimals();
+    }
+
+    // Render Animals on the Field
+    function renderAnimals() {
+        gameField.innerHTML = ''; // Clear the field
+        animals.forEach(animal => {
+            const animalElement = document.createElement('div');
+            animalElement.className = 'animal';
+            animalElement.style.position = 'absolute';
+            animalElement.style.left = animal.x + 'px';
+            animalElement.style.top = animal.y + 'px';
+            animalElement.innerHTML = getAnimalIcon(animal.type);
+            animalElement.title = `Type: ${animal.type}`;
+            gameField.appendChild(animalElement);
+        });
+    }
+
+    // Return Animal Icon
+    function getAnimalIcon(type) {
+        switch (type) {
+            case 'Lion': return '🦁';
+            case 'Leopard': return '🐆';
+            case 'Antelope': return '🦌';
+            case 'Giraffe': return '🦒';
+            case 'Zebra': return '🦓';
+            default: return '🐾';
+        }
+    }
+
+    // Save Game State to Local Storage
+    function saveGame() {
+        localStorage.setItem('savannaGame', JSON.stringify(animals));
+        alert('Game saved!');
+    }
+
+    // Load Game State from Local Storage
+    function loadGame() {
+        const savedGame = localStorage.getItem('savannaGame');
+        if (savedGame) {
+            animals = JSON.parse(savedGame);
+            renderAnimals();
+            alert('Game loaded!');
+        } else {
+            alert('No saved game found.');
+        }
+    }
+
+    // Initial render of animals
+    renderAnimals();
+</script>
+
+@* <script>
+    // Simulated game loop
+    setInterval(() => {
+        fetch('/Home/UpdateGame') // Call an endpoint to update animal positions
+            .then(response => response.json())
+            .then(data => {
+                // Update the positions of animals on the field
+                data.animals.forEach(animal => {
+                    const element = document.getElementById(`animal-${animal.id}`);
+                    if (element) {
+                        element.style.left = animal.x + 'px';
+                        element.style.top = animal.y + 'px';
+                    }
+                });
+            });
+    }, 1000); // Run every 1 second
+</script> *@
